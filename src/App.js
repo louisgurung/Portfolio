@@ -2,43 +2,42 @@ import "./App.css";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core";
+import theme from "./theme/index";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import About from "./component/about";
 import Footer from "./component/footer";
 import Project from "./component/Project";
+// import Skills from "./component/skills";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: "80%",
-    maxWidth: "1100px",
-    margin: "0 auto",
-    background: "#fcf2e8",
+    width: "95%",
+    maxWidth: "1150px",
+    margin: "auto",
     backgroundRepeat: "repeat-x",
   },
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    flexGrow: 1,
-  },
+
   appbar: {
-    backgroundColor: "#fcf2e8",
     color: "black",
     padding: "1em 0",
     height: "auto",
     margin: 0,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       height: "auto",
     },
   },
   toolbar: {
-    height:"5vh",
+    height: "5vh",
     display: "flex",
     flexDirection: "row",
     margin: 0,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
     },
   },
@@ -47,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexShrink: 1,
     flexGrow: 1,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
     },
   },
@@ -57,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Satisfy",
     fontSize: "2.5rem",
     padding: "0.5em",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       fontSize: "1.5rem",
       width: "100%",
     },
@@ -66,14 +65,14 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     "&:hover, &:focus": {
       cursor: "pointer",
-      color: "#F16A70",
+      // color: "#F16A70", this line colors all
       textDecoration: "none",
       backgroundImage: "linear-gradient(to right, #F16A70, #F16A70)",
       backgroundPosition: "bottom",
       backgroundRepeat: "no-repeat",
-      backgroundSize: "100% 2px",
+      backgroundSize: "100% 3px",
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
       margin: "0.15rem auto",
       fontSize: "1rem",
@@ -85,37 +84,43 @@ const App = (props) => {
   const classes = useStyles();
 
   return (
-    <div
-      className="container"
-      style={{
-        background: "#fcf2e8",
-      }}
-    >
-      <ElevationScroll {...props}>
-        <AppBar position="sticky" className={classes.appbar}>
-          <Toolbar className={classes.toolbar}>
-            <div className={classes.nameTitle}>LOUIS GURUNG</div>
-            <div className={classes.navItems}>
-              <Typography variant="h5" className={classes.title}>
-                AboutMe
-              </Typography>
-              <Typography variant="h5" className={classes.title}>
-                Skills
-              </Typography>
-              <Typography variant="h5" className={classes.title}>
-                Projects
-              </Typography>
-              <Typography variant="h5" className={classes.title}>
-                Contact
-              </Typography>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
-      <About />
-      <Project />
-      <Footer />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="container">
+        <ElevationScroll {...props}>
+          <AppBar position="sticky" className={classes.appbar}>
+            <Toolbar className={classes.toolbar}>
+              <div className={classes.nameTitle}>LOUIS GURUNG</div>
+              <div className={classes.navItems}>
+                <Typography variant="h5" className={classes.title} href="about">
+                  AboutMe
+                </Typography>
+                <Typography variant="h5" className={classes.title}>
+                  Skills
+                </Typography>
+
+                <Typography variant="h5" className={classes.title}>
+                  Projects{" "}
+                </Typography>
+
+                <Typography
+                  variant="h5"
+                  className={classes.title}
+                  href="contact"
+                >
+                  Contact
+                </Typography>
+              </div>
+            </Toolbar>
+          </AppBar>
+        </ElevationScroll>
+        <div className={classes.container}>
+          <About />
+          {/* <Skills /> */}
+          <Project />
+          <Footer />
+        </div>
+      </div>
+    </ThemeProvider>
   );
 };
 

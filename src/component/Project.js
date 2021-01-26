@@ -1,108 +1,142 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Paper from "@material-ui/core/Paper";
+import AgriCoShot from "../assets/agricoshot.jpg";
+import labapp from "../assets/labapp.jpg";
+import dealmart from "../assets/dealmart.jpg";
 
 const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
+  paper: {
+    textAlign: "center",
+
+    width: "60%",
+    padding: "2em",
+    background:
+      "linear-gradient(90deg, rgba(238,237,193,1) 0%, rgba(239,210,244,1) 100%) !important",
   },
   cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+    margin: 0,
+    width: "100%",
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+    justifyContent: "space-between",
   },
-  card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
+  projectDetails: {
+    maxWidth: "700px",
+    fontWeight: "bold",
+    fontSize: "1.125rem",
+    fontFamily: "Nunito",
+    marginBottom: "6em",
+
+    color: "black",
   },
-  cardMedia: {
-    paddingTop: "56.25%", // 16:9
+  projectImage: {
+    width: "100%",
+    height: "30em",
+    marginBottom: "6em",
   },
-  cardContent: {
-    flexGrow: 1,
+  projectTitle: {
+    fontWeight: "bold",
+    fontSize: "1.8rem",
+    textDecoration: "underline",
   },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
+  link: {
+    fontSize: "1.3rem",
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const projectItems = [
+  {
+    details:
+      "AgriCo. App is a Web and Mobile App made for a group project assigned by ENVOC LLC. It lets you buy tickets to pick agricultural products. Features like QR code, purchasing tickets, seeing transactions, give feedback, roles were implemented. Deployed using Azure",
+    source: AgriCoShot,
+    alt: "AgriCoApp",
+    imagePosition: "right",
+    link: "https://agricoapp.azurewebsites.net/",
+  },
+  {
+    details:
+      "This is a group project built for Computer Science Professor, Dr. Kuo Pao Yang, in order to monitor his Computer Tutoring Labs. The admin has his dashboard where he can schedule work hours, view student logs, receive tickets and also message the assistants.",
+    source: labapp,
+    alt: "SELU Lab App",
+    imagePosition: "left",
+    link: "https://agricoapp.azurewebsites.net/",
+  },
+  {
+    details:
+      "DealMart is an e-commerce site for buying new and used books. It started as a group project to raise funds for NSAS(Nepalese Student Association at Southeastern) which organizes various events for International students. ",
+    source: dealmart,
+    alt: "DealMart",
+    imagePosition: "right",
+    link: "",
+  },
+];
 
-export default function Album() {
+export default function Project() {
   const classes = useStyles();
 
   return (
     <React.Fragment>
       <main>
         <h1 className="header">Projects</h1>
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
+        <Grid container spacing={2} className={classes.cardGrid}>
+          {projectItems.map((item) => {
+            return item.imagePosition === "right" ? (
+              <React.Fragment>
+                {" "}
+                <Grid item xs={6} className={classes.projectDetails}>
+                  <Paper className={classes.paper}>
+                    <h3 className={classes.projectTitle}>{item.alt}</h3>
+                    <br />
+                    {item.details}
+                    <br />
+                    <br />
+                    {item.link && (
+                      <a href={item.link} className={classes.link}>
+                        View Demo
+                      </a>
+                    )}
+                  </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                  <img
+                    src={item.source}
+                    alt={item.alt}
+                    className={classes.projectImage}
                   />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe
-                      the content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
+                </Grid>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                {" "}
+                <Grid item xs={6}>
+                  <img
+                    src={item.source}
+                    alt={item.alt}
+                    className={classes.projectImage}
+                  />
+                </Grid>
+                <Grid item xs={6} className={classes.projectDetails}>
+                  <Paper className={classes.paper} style={{ float: "right" }}>
+                    <h3 className={classes.projectTitle}>{item.alt}</h3>
+                    <br />
+                    {item.details}
+                    <br />
+                    <br />
+
+                    {item.link && (
+                      <a href={item.link} className={classes.link}>
+                        View Demo
+                      </a>
+                    )}
+                  </Paper>
+                </Grid>
+              </React.Fragment>
+            );
+          })}
+        </Grid>
       </main>
-      {/* Footer */}
     </React.Fragment>
   );
 }
